@@ -8,20 +8,20 @@ export default function Button({
   title,
   color = THEME.colors['blue-500'],
   style,
-  ...rest
+  ...props
 }) {
   return (
     <TouchableOpacity
       style={{
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 32,
-        paddingVertical: 20,
+        paddingHorizontal: 40,
+        paddingVertical: 15,
         borderRadius: 3,
         backgroundColor: THEME.colors['blue-500'],
         ...style,
       }}
-      {...rest}
+      {...props}
     >
       <Text color="white">{title}</Text>
     </TouchableOpacity>

@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
 import InterLightFont from '@assets/fonts/Inter-Light.otf';
 import InterRegularFont from '@assets/fonts/Inter-Regular.otf';
+import InterMediumFont from '@assets/fonts/Inter-Medium.otf';
 import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf';
 import HomeScreen from '@screens/HomeScreen';
 import LoadingScreen from '@screens/LoadingScreen';
@@ -30,6 +31,7 @@ function App() {
       await Font.loadAsync({
         'inter-light': InterLightFont,
         'inter-regular': InterRegularFont,
+        'inter-medium': InterMediumFont,
         'inter-semibold': InterSemiBoldFont,
       })
 

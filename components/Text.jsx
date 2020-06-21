@@ -8,16 +8,16 @@ export default function XText({
   weight = 'regular',
   size = 'base',
   children,
-  ...rest
+  ...props
 }) {
   return (
     <Text
       style={{
         fontFamily: `inter-${weight}`,
-        fontSize: size === 'xl' ? 32 : 16,
+        fontSize: size === 'xl' ? 32 : size === 'lg' ? 24 : 16,
         color: THEME.colors[color],
       }}
-      {...rest}
+      {...props}
     >
       {children}
     </Text>
@@ -26,5 +26,5 @@ export default function XText({
 
 XText.propTypes = {
   weight: PropTypes.oneOf(['light', 'regular', 'semibold']),
-  size: PropTypes.oneOf(['base', 'xl']),
+  size: PropTypes.oneOf(['base', 'lg', 'xl']),
 };
