@@ -2,7 +2,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@assets/*": ["./assets/*"],
+      "@components/*": ["./components/*"],
+      "@constants/*": ["./constants/*"],
+      "@hooks/*": ["./hooks/*"],
       "@screens/*": ["./screens/*"]
     }
-  }
+  },
+  "exclude": ["./node_modules"]
 }
