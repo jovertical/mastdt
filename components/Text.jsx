@@ -10,15 +10,19 @@ export default function XText({
   color = THEME.colors['gray-900'],
   weight = 'regular',
   size = 'base',
+  style,
   children,
   ...props
 }) {
   return (
     <Text
       style={{
-        fontFamily: `inter-${weight}`,
-        fontSize: size === 'xl' ? 32 : size === 'lg' ? 24 : 16,
-        color: THEME.colors[color],
+        ...{
+          fontFamily: `inter-${weight}`,
+          fontSize: size === 'xl' ? 32 : size === 'lg' ? 24 : 16,
+          color: THEME.colors[color],
+        },
+        ...style,
       }}
       {...props}
     >
