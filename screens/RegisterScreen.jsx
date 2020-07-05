@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ToastAndroid } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import includes from 'lodash/includes';
+import pick from 'lodash/pick';
 import range from 'lodash/range';
 import Button from '@components/Button';
 import Picker from '@components/Picker';
@@ -9,7 +12,7 @@ import TextInput from '@components/TextInput';
 import useDisableBack from '@hooks/useDisableBack';
 import useForm from '@hooks/useForm';
 
-export default function RegisterScreen() {
+export default function RegisterScreen({ navigation }) {
   useDisableBack();
 
   const { values, onChange } = useForm({
@@ -24,6 +27,10 @@ export default function RegisterScreen() {
   const [first, setFirst] = React.useState(true);
 
   function handleNext() {
+    if (values.first_name === '' || values.last_name === '') {
+      return ToastAndroid.show(`What's your name?`, ToastAndroid.SHORT);
+    }
+
     setFirst(false);
   }
 
@@ -49,7 +56,25 @@ export default function RegisterScreen() {
     }
   }
 
-  function handleSubmit() {}
+  async function handleSubmit() {
+    if (includes(pick(values, ['gender', 'age', 'grade']), null)) {
+      return ToastAndroid.show(
+        `Let us know these details first :)`,
+        ToastAndroid.SHORT,
+      );
+    }
+
+    try {
+      await AsyncStorage.setItem('@user', JSON.stringify(values));
+      navigation.navigate('Home');
+      ToastAndroid.show(`Welcome ${values.first_name}!`, ToastAndroid.SHORT);
+    } catch (error) {
+      ToastAndroid.show(
+        error?.message || 'Something went wrong',
+        ToastAndroid.SHORT,
+      );
+    }
+  }
 
   React.useEffect(() => {
     console.log(values);
@@ -115,7 +140,7 @@ export default function RegisterScreen() {
                   onValueChange={handleAgeChanged}
                 >
                   <PickerItem label="Age" value={null} />
-                  {range(4, 10).map((age) => (
+                  {range(7, 11).map((age) => (
                     <PickerItem
                       key={`age-${age}`}
                       label={`${age} Years Old`}
@@ -132,7 +157,7 @@ export default function RegisterScreen() {
                   onValueChange={handleGradeChanged}
                 >
                   <PickerItem label="Grade Level" value={null} />
-                  {range(1, 5).map((grade) => (
+                  {range(2, 5).map((grade) => (
                     <PickerItem
                       key={`grade-level-${grade}`}
                       label={`Grade ${grade}`}

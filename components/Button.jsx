@@ -2,14 +2,14 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, TouchableWithoutFeedbackProps } from 'react-native';
 import Text from '@components/Text';
-import THEME from '@constants/theme';
+import { colors } from '@constants/theme';
 
 /**
  * @param {TouchableWithoutFeedbackProps} props
  */
 export default function Button({
   title,
-  color = THEME.colors['blue-500'],
+  color = colors['blue-500'],
   style,
   ...props
 }) {
@@ -21,7 +21,7 @@ export default function Button({
         paddingHorizontal: 40,
         paddingVertical: 15,
         borderRadius: 3,
-        backgroundColor: THEME.colors['blue-500'],
+        backgroundColor: colors['blue-500'],
         ...style,
       }}
       {...props}

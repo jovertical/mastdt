@@ -9,6 +9,7 @@ import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf';
 import HomeScreen from '@screens/HomeScreen';
 import LoadingScreen from '@screens/LoadingScreen';
 import RegisterScreen from '@screens/RegisterScreen';
+import WelcomeScreen from '@screens/WelcomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -48,8 +49,9 @@ function App() {
           <Stack.Screen name="Loading" component={LoadingScreen} />
         ) : (
             <React.Fragment>
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Welcome" component={WelcomeScreen} />
               <Stack.Screen name="Register" component={RegisterScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
             </React.Fragment>
           )}
       </Stack.Navigator>

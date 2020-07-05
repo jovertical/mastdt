@@ -1,13 +1,13 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Text, TextProps } from 'react-native';
-import THEME from '@constants/theme';
+import { colors } from '@constants/theme';
 
 /**
  * @param {TextProps} props
  */
 export default function XText({
-  color = THEME.colors['gray-900'],
+  color = colors['gray-900'],
   weight = 'regular',
   size = 'base',
   style,
@@ -20,7 +20,7 @@ export default function XText({
         ...{
           fontFamily: `inter-${weight}`,
           fontSize: size === 'xl' ? 32 : size === 'lg' ? 24 : 16,
-          color: THEME.colors[color],
+          color: colors[color],
         },
         ...style,
       }}
