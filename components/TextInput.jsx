@@ -1,6 +1,9 @@
 import * as React from 'react';
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, TextInputProps } from 'react-native';
 
+/**
+ * @param {TextInputProps} props
+ */
 export default function XTextInput({ style, ...props }) {
   return (
     <React.Fragment>

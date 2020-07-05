@@ -1,9 +1,12 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, TouchableWithoutFeedbackProps } from 'react-native';
 import Text from '@components/Text';
 import THEME from '@constants/theme';
 
+/**
+ * @param {TouchableWithoutFeedbackProps} props
+ */
 export default function Button({
   title,
   color = THEME.colors['blue-500'],
