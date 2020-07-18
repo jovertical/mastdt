@@ -1,15 +1,18 @@
-import { Database } from '@nozbe/watermelondb'
-import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
-
-import schema from './schema'
+import { createConnection, getConnection } from 'typeorm/browser'
 import Task from '@models/Task'
 
-const adapter = new SQLiteAdapter({ schema })
-
-export default new Database({
-  adapter,
-  modelClasses: [
-    Task
-  ],
-  actionsEnabled: true,
-})
+export default async () => {
+  try {
+    return getConnection()
+  } catch (error) {
+    return createConnection({
+      database: 'mastdt',
+      driver: require('expo-sqlite'),
+      entities: [
+        Task
+      ],
+      synchronize: true,
+      type: 'expo',
+    })
+  }
+}

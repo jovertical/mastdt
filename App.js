@@ -2,6 +2,7 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as Font from 'expo-font';
+import 'reflect-metadata';
 import InterLightFont from '@assets/fonts/Inter-Light.otf';
 import InterRegularFont from '@assets/fonts/Inter-Regular.otf';
 import InterMediumFont from '@assets/fonts/Inter-Medium.otf';

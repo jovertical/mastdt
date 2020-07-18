@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "jsx": "react",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
       "@assets/*": ["./assets/*"],

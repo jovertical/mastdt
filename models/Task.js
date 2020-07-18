@@ -1,13 +1,16 @@
-import { Model } from '@nozbe/watermelondb'
-import { field, date } from '@nozbe/watermelondb/decorators'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm/browser';
 
-export default class Task extends Model {
-  static table = 'tasks'
+@Entity('tasks')
+export default class Task {
+  @PrimaryGeneratedColumn()
+  id;
 
-  @field('title') title
-  @field('cleared') cleared
-  @field('locked') locked
+  @Column({ type: String })
+  title;
 
-  @date('created_at') createdAt
-  @date('updated_at') updatedAt
+  @Column({ type: Boolean, default: false })
+  cleared;
+
+  @Column({ type: Boolean, default: true })
+  locked;
 }
