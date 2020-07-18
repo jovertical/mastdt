@@ -30,7 +30,7 @@ function App() {
   })
 
   React.useEffect(() => {
-    const bootstrap = async () => {
+    const loadFonts = async () => {
       await Font.loadAsync({
         'inter-light': InterLightFont,
         'inter-regular': InterRegularFont,
@@ -41,7 +41,7 @@ function App() {
       dispatch({ type: 'SET_FONT_LOADED' })
     }
 
-    bootstrap();
+    loadFonts();
   }, [])
 
   return (

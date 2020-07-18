@@ -1,23 +1,9 @@
 import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { getRepository } from 'typeorm/browser';
 import Text from '@components/Text';
 import { colors } from '@constants/theme';
-import connect from '@database';
-import Task from '@models/Task';
 
 export default function HomeScreen() {
-  React.useEffect(() => {
-    const bootstrap = async () => {
-      await connect();
-
-      const taskRepository = getRepository(Task);
-      const tasks = await taskRepository.find();
-    };
-
-    bootstrap();
-  }, []);
-
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
