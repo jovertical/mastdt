@@ -4,24 +4,35 @@ import AsyncStorage from '@react-native-community/async-storage';
 import includes from 'lodash/includes';
 import pick from 'lodash/pick';
 import range from 'lodash/range';
+import { getRepository } from 'typeorm/browser';
+
 import Button from '@components/Button';
 import Picker from '@components/Picker';
 import PickerItem from '@components/PickerItem';
 import Text from '@components/Text';
 import TextInput from '@components/TextInput';
+import connect from '@database';
 import useDisableBack from '@hooks/useDisableBack';
 import useForm from '@hooks/useForm';
+import User from '@models/User';
 
 export default function RegisterScreen({ navigation }) {
   useDisableBack();
 
   const { values, onChange } = useForm({
-    first_name: '',
+    // first_name: '',
+    // middle_name: '',
+    // last_name: '',
+    // gender: null,
+    // age: null,
+    // grade: null,
+
+    first_name: 'John',
     middle_name: '',
-    last_name: '',
-    gender: null,
-    age: null,
-    grade: null,
+    last_name: 'Doe',
+    gender: 'male',
+    age: 7,
+    grade: 2,
   });
 
   const [first, setFirst] = React.useState(true);
@@ -56,6 +67,22 @@ export default function RegisterScreen({ navigation }) {
     }
   }
 
+  async function storeUser(attributes) {
+    await connect();
+
+    const user = new User();
+
+    user.first_name = attributes.first_name;
+    user.middle_name = attributes.middle_name;
+    user.last_name = attributes.last_name;
+    user.gender = attributes.gender;
+    user.age = attributes.age;
+    user.grade = attributes.grade;
+
+    const userRepository = getRepository(User);
+    return userRepository.save(user);
+  }
+
   async function handleSubmit() {
     if (includes(pick(values, ['gender', 'age', 'grade']), null)) {
       return ToastAndroid.show(
@@ -65,9 +92,10 @@ export default function RegisterScreen({ navigation }) {
     }
 
     try {
-      await AsyncStorage.setItem('@user', JSON.stringify(values));
+      const user = await storeUser(values);
+
       navigation.navigate('Home');
-      ToastAndroid.show(`Welcome ${values.first_name}!`, ToastAndroid.SHORT);
+      ToastAndroid.show(`Welcome ${user.first_name}!`, ToastAndroid.SHORT);
     } catch (error) {
       ToastAndroid.show(
         error?.message || 'Something went wrong',
@@ -75,10 +103,6 @@ export default function RegisterScreen({ navigation }) {
       );
     }
   }
-
-  React.useEffect(() => {
-    console.log(values);
-  }, [values]);
 
   return (
     <View style={styles.root}>
@@ -129,8 +153,8 @@ export default function RegisterScreen({ navigation }) {
                   onValueChange={handleGenderChanged}
                 >
                   <PickerItem label="Gender" value={null} />
-                  <PickerItem label="Female" value={'female'} />
-                  <PickerItem label="Male" value={'gender'} />
+                  <PickerItem label="Female" value="female" />
+                  <PickerItem label="Male" value="male" />
                 </Picker>
 
                 <Picker

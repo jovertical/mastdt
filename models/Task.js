@@ -1,16 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm/browser';
+import { Entity, Column } from 'typeorm/browser';
+import Model from './Model';
 
 @Entity('tasks')
-export default class Task {
-  @PrimaryGeneratedColumn()
-  id;
-
-  @Column({ type: String })
+export default class Task extends Model {
+  @Column({ type: 'varchar' })
   title;
-
-  @Column({ type: Boolean, default: false })
-  cleared;
-
-  @Column({ type: Boolean, default: true })
-  locked;
 }
