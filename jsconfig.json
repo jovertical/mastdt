@@ -2,12 +2,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "jsx": "react",
+    "experimentalDecorators": true,
     "paths": {
       "@assets/*": ["./assets/*"],
       "@components/*": ["./components/*"],
       "@constants/*": ["./constants/*"],
       "@contexts/*": ["./contexts/*"],
+      "@database/*": ["./database/*"],
       "@hooks/*": ["./hooks/*"],
+      "@models/*": ["./models/*"],
       "@screens/*": ["./screens/*"]
     }
   },

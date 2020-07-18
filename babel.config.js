@@ -11,7 +11,9 @@ module.exports = function (api) {
             '@components': './components',
             '@constants': './constants',
             '@contexts': './contexts',
+            '@database': './database',
             '@hooks': './hooks',
+            '@models': './models',
             '@screens': './screens'
           }
         }

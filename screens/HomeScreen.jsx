@@ -2,8 +2,15 @@ import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import Text from '@components/Text';
 import { colors } from '@constants/theme';
+import db from '@database';
 
 export default function HomeScreen() {
+  React.useEffect(() => {
+    const tasks = db.get('tasks');
+
+    console.log(tasks);
+  }, []);
+
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
