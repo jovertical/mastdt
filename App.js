@@ -6,6 +6,7 @@ import InterLightFont from '@assets/fonts/Inter-Light.otf';
 import InterRegularFont from '@assets/fonts/Inter-Regular.otf';
 import InterMediumFont from '@assets/fonts/Inter-Medium.otf';
 import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf';
+import TaskContext from '@contexts/TaskContext';
 import HomeScreen from '@screens/HomeScreen';
 import LoadingScreen from '@screens/LoadingScreen';
 import RegisterScreen from '@screens/RegisterScreen';
@@ -44,17 +45,19 @@ function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {state.loading || !state.fontLoaded ? (
-          <Stack.Screen name="Loading" component={LoadingScreen} />
-        ) : (
-            <React.Fragment>
-              <Stack.Screen name="Welcome" component={WelcomeScreen} />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-              <Stack.Screen name="Home" component={HomeScreen} />
-            </React.Fragment>
-          )}
-      </Stack.Navigator>
+      <TaskContext.Provider>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {state.loading || !state.fontLoaded ? (
+            <Stack.Screen name="Loading" component={LoadingScreen} />
+          ) : (
+              <React.Fragment>
+                {/* <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
+                {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
+                <Stack.Screen name="Home" component={HomeScreen} />
+              </React.Fragment>
+            )}
+        </Stack.Navigator>
+      </TaskContext.Provider>
     </NavigationContainer >
   );
 }

@@ -4,14 +4,6 @@ import Text from '@components/Text';
 import { colors } from '@constants/theme';
 
 export default function HomeScreen() {
-  const [tasks, setTasks] = React.useState(TASKS);
-
-  React.useEffect(() => {
-    const loadTasks = async () => {};
-
-    loadTasks();
-  }, []);
-
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
@@ -19,15 +11,13 @@ export default function HomeScreen() {
       </Text>
 
       <View style={styles.taskList}>
-        {tasks.map((task, key) => (
+        {TASKS.map((task, key) => (
           <TouchableOpacity key={`task-${key}`} style={styles.task}>
-            <View
-              style={[styles.taskBody, !task.unlocked && styles.taskLocked]}
-            >
+            <View style={[styles.body, task.locked && styles.locked]}>
               <Text
                 weight="semibold"
                 size="lg"
-                color={task.unlocked ? 'gray-500' : 'white'}
+                color={task.locked ? 'white' : 'gray-500'}
               >
                 {key + 1}
               </Text>
@@ -60,7 +50,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 
-  taskBody: {
+  body: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -70,7 +60,7 @@ const styles = StyleSheet.create({
     borderColor: colors['gray-500'],
   },
 
-  taskLocked: {
+  locked: {
     backgroundColor: colors['blue-500'],
     borderWidth: 0,
   },
@@ -78,62 +68,72 @@ const styles = StyleSheet.create({
 
 const TASKS = [
   {
+    id: 1,
     name: 'Task 1',
-    complete: false,
-    unlocked: true,
+    cleared: false,
+    locked: false,
   },
 
   {
+    id: 2,
     name: 'Task 2',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 3,
     name: 'Task 3',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 4,
     name: 'Task 4',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 5,
     name: 'Task 5',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 6,
     name: 'Task 6',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 7,
     name: 'Task 7',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 8,
     name: 'Task 8',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 9,
     name: 'Task 9',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 
   {
+    id: 10,
     name: 'Task 10',
-    complete: false,
-    unlocked: false,
+    cleared: false,
+    locked: true,
   },
 ];
