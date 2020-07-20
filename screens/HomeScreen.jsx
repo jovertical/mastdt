@@ -1,9 +1,15 @@
 import * as React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
 import Text from '@components/Text';
 import { colors } from '@constants/theme';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
+  React.useEffect(() => {
+    console.log();
+  }, []);
+
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
@@ -12,7 +18,16 @@ export default function HomeScreen() {
 
       <View style={styles.taskList}>
         {TASKS.map((task, key) => (
-          <TouchableOpacity key={`task-${key}`} style={styles.task}>
+          <TouchableOpacity
+            key={`task-${key}`}
+            style={styles.task}
+            disabled={task.locked || task.cleared}
+            onPress={() =>
+              navigation.navigate(
+                upperFirst(camelCase(task.code.toLowerCase() + 'Task')),
+              )
+            }
+          >
             <View style={[styles.body, task.locked && styles.locked]}>
               <Text
                 weight="semibold"
@@ -61,79 +76,86 @@ const styles = StyleSheet.create({
   },
 
   locked: {
-    backgroundColor: colors['blue-500'],
+    backgroundColor: colors['gray-500'],
     borderWidth: 0,
   },
 });
 
 const TASKS = [
   {
-    id: 1,
-    name: 'Task 1',
+    code: 'REACTION_TIME',
+    title: 'Reaction Time',
     cleared: false,
     locked: false,
   },
 
   {
-    id: 2,
-    name: 'Task 2',
+    code: 'DOT_COUNTING',
+    title: 'Dot Counting',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 3,
-    name: 'Task 3',
+    code: 'DOT_COMPARISON',
+    title: 'Dot Comparison',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 4,
-    name: 'Task 4',
+    code: 'SYMBOLIC_NUMBER_COMPARISON',
+    title: 'Symbolic Number Comparison',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 5,
-    name: 'Task 5',
+    code: 'VERBAL_ARABIC_MATCHING',
+    title: 'Verbal Arabic Matching',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 6,
-    name: 'Task 6',
+    code: 'MATCHING_OBJECTS',
+    title: 'Matching Objects',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 7,
-    name: 'Task 7',
+    code: 'QUANTITY_ESTIMATION',
+    title: 'Quantity Estimation',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 8,
-    name: 'Task 8',
+    code: 'NUMBER_LINE_ESTIMATION',
+    title: 'Number Line Estimation',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 9,
-    name: 'Task 9',
+    code: 'ARITHMETIC_CALCULATION',
+    title: 'Arithmetic Calculation',
     cleared: false,
     locked: true,
   },
 
   {
-    id: 10,
-    name: 'Task 10',
+    code: 'VERBAL_SHORT_TERM_WORKING_MEMORY',
+    title: 'Verbal Short-Term Working Memory',
     cleared: false,
     locked: true,
   },
+
+  // {
+  //   code: 'SPATIAL_SHORT_TERM_WORKING_MEMORY',
+  //   title: 'Spatial Short-Term Working Memory',
+  //   cleared: false,
+  //   locked: true,
+  // },
 ];
