@@ -1,24 +1,41 @@
 import * as React from 'react'
 
 /**
- * @return {{ time: Number, reset: Function }}
+ * @return {output}
  */
 export default function useTimer() {
+  const [running, setRunning] = React.useState(false)
   const [time, setTime] = React.useState(0)
 
-  function handleReset() {
+  function stop() {
+    setRunning(false)
+  }
+
+  function start() {
+    setRunning(true)
+  }
+
+  function reset() {
     setTime(0)
   }
 
   React.useEffect(() => {
-    const timer = setInterval(() => {
-      console.log('Yow')
-    }, 10)
+    // 
+  }, [running])
 
-    return () => {
-      clearInterval(timer)
-    }
-  })
+  return {
+    running,
+    start,
+    stop,
+    time,
+    reset
+  }
+}
 
-  return { time, reset: handleReset }
+const output = {
+  running: Boolean,
+  stop: Function,
+  start: Function,
+  time: Number,
+  reset: Function
 }

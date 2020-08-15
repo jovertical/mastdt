@@ -1,42 +1,23 @@
-import * as React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import random from 'lodash/random';
-import { colors } from '@constants/theme';
-import Text from '@components/Text';
-import useTimer from '@hooks/useTimer';
+import * as React from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import random from 'lodash/random'
+import { colors } from '@constants/theme'
+import Button from '@components/Button'
+import Text from '@components/Text'
+import useTimer from '@hooks/useTimer'
 
 export default function ReactionTimeTaskScreen() {
-  const timer = useTimer();
-  const [entries, setEntries] = React.useState([]);
-  const [position, setPosition] = React.useState({ x: 0, y: 0 });
-
-  function handlePress() {
-    setEntries((prevEntries) => prevEntries.concat(timer.time));
-    timer.reset();
-  }
+  const clock = useTimer()
 
   React.useEffect(() => {
-    setPosition({
-      x: random(1, 3),
-      y: random(1, 3),
-    });
-  }, [entries]);
+    clock.start()
+  }, [])
 
   return (
     <View style={styles.root}>
-      <Text>{timer.time}</Text>
-      {/* <TouchableOpacity
-        style={[
-          styles.object,
-          {
-            left: `${25 * position.x}%`,
-            top: `${25 * position.y}%`,
-          },
-        ]}
-        onPress={handlePress}
-      /> */}
+      <Text>{clock.time}</Text>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -57,4 +38,4 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     position: 'absolute',
   },
-});
+})
