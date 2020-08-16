@@ -6,10 +6,6 @@ import Text from '@components/Text'
 import { colors } from '@constants/theme'
 
 export default function HomeScreen({ navigation }) {
-  React.useEffect(() => {
-    console.log()
-  }, [])
-
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
@@ -28,11 +24,17 @@ export default function HomeScreen({ navigation }) {
               )
             }
           >
-            <View style={[styles.body, task.locked && styles.locked]}>
+            <View
+              style={[
+                styles.body,
+                task.locked && styles.locked,
+                task.cleared && styles.cleared,
+              ]}
+            >
               <Text
                 weight="semibold"
                 size="lg"
-                color={task.locked ? 'white' : 'gray-500'}
+                color={task.locked || task.cleared ? 'white' : 'gray-500'}
               >
                 {key + 1}
               </Text>
@@ -73,6 +75,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 2,
     borderColor: colors['gray-500'],
+  },
+
+  cleared: {
+    backgroundColor: colors['blue-500'],
+    borderWidth: 0,
   },
 
   locked: {

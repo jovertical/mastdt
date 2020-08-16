@@ -1,21 +1,21 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import * as Font from 'expo-font';
-import 'reflect-metadata';
+import * as React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import * as Font from 'expo-font'
+import 'reflect-metadata'
 
-import InterLightFont from '@assets/fonts/Inter-Light.otf';
-import InterRegularFont from '@assets/fonts/Inter-Regular.otf';
-import InterMediumFont from '@assets/fonts/Inter-Medium.otf';
-import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf';
-import TaskContext from '@contexts/TaskContext';
-import LoadingScreen from '@screens/LoadingScreen';
-import WelcomeScreen from '@screens/WelcomeScreen';
-import RegisterScreen from '@screens/RegisterScreen';
-import HomeScreen from '@screens/HomeScreen';
-import ReactionTimeTaskScreen from '@screens/Tasks/ReactionTimeTaskScreen';
+import InterLightFont from '@assets/fonts/Inter-Light.otf'
+import InterRegularFont from '@assets/fonts/Inter-Regular.otf'
+import InterMediumFont from '@assets/fonts/Inter-Medium.otf'
+import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf'
+import TaskContext from '@contexts/TaskContext'
+import LoadingScreen from '@screens/LoadingScreen'
+import WelcomeScreen from '@screens/WelcomeScreen'
+import RegisterScreen from '@screens/RegisterScreen'
+import HomeScreen from '@screens/HomeScreen'
+import ReactionTimeTaskScreen from '@screens/Tasks/ReactionTimeTaskScreen'
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator()
 
 function App() {
   const [state, dispatch] = React.useReducer((prevState, action) => {
@@ -43,7 +43,7 @@ function App() {
       dispatch({ type: 'SET_FONT_LOADED' })
     }
 
-    loadFonts();
+    loadFonts()
   }, [])
 
   return (
@@ -54,8 +54,8 @@ function App() {
             <Stack.Screen name="Loading" component={LoadingScreen} />
           ) : (
               <React.Fragment>
-                {/* <Stack.Screen name="Welcome" component={WelcomeScreen} /> */}
-                {/* <Stack.Screen name="Register" component={RegisterScreen} /> */}
+                <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
                 <Stack.Screen name="Home" component={HomeScreen} />
                 <Stack.Screen name="ReactionTimeTask" component={ReactionTimeTaskScreen} />
               </React.Fragment>
@@ -63,7 +63,7 @@ function App() {
         </Stack.Navigator>
       </TaskContext.Provider>
     </NavigationContainer >
-  );
+  )
 }
 
-export default App;
+export default App
