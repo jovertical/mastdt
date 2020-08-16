@@ -9,7 +9,7 @@ import { colors } from '@constants/theme'
 import connect from '@database'
 import Task from '@models/Task'
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ navigation, route }) {
   const [loading, setLoading] = React.useState(false)
   const [tasks, setTasks] = React.useState([])
 
@@ -26,7 +26,7 @@ export default function HomeScreen({ navigation }) {
 
   React.useEffect(() => {
     fetchTasks()
-  }, [])
+  }, [route.params?.refresh])
 
   if (loading) {
     return null

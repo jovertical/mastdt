@@ -1,8 +1,12 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { getRepository } from 'typeorm/browser'
+
 import Text from '@components/Text'
 import { colors } from '@constants/theme'
+import connect from '@database'
 import useTimer from '@hooks/useTimer'
+import Task from '@models/Task'
 
 export default function ReactionTimeTaskScreen({ navigation }) {
   const clock = useTimer()
@@ -21,8 +25,16 @@ export default function ReactionTimeTaskScreen({ navigation }) {
       return
     }
 
-    const timeout = setTimeout(() => {
-      navigation.navigate('Home')
+    const timeout = setTimeout(async () => {
+      await connect()
+
+      const taskRepository = getRepository(Task)
+      await taskRepository.update({ code: 'REACTION_TIME' }, { cleared: true })
+      await taskRepository.update({ code: 'DOT_COUNTING' }, { locked: false })
+
+      navigation.navigate('Home', {
+        refresh: true,
+      })
     }, 3000)
 
     return () => clearTimeout(timeout)
@@ -91,26 +103,26 @@ const sequence = [
   { x: 3, y: 4 },
   { x: 0, y: 0 },
   { x: 1, y: 2 },
-  { x: 1, y: 4 },
-  { x: 2, y: 1 },
-  { x: 3, y: 2 },
-  { x: 1, y: 0 },
-  { x: 1, y: 1 },
-  { x: 0, y: 4 },
-  { x: 2, y: 3 },
-  { x: 0, y: 3 },
-  { x: 4, y: 3 },
-  { x: 2, y: 0 },
-  { x: 0, y: 2 },
-  { x: 4, y: 4 },
-  { x: 4, y: 2 },
-  { x: 3, y: 1 },
-  { x: 4, y: 0 },
-  { x: 2, y: 4 },
-  { x: 3, y: 3 },
-  { x: 1, y: 3 },
-  { x: 3, y: 0 },
-  { x: 2, y: 2 },
-  { x: 4, y: 1 },
-  { x: 0, y: 1 },
+  // { x: 1, y: 4 },
+  // { x: 2, y: 1 },
+  // { x: 3, y: 2 },
+  // { x: 1, y: 0 },
+  // { x: 1, y: 1 },
+  // { x: 0, y: 4 },
+  // { x: 2, y: 3 },
+  // { x: 0, y: 3 },
+  // { x: 4, y: 3 },
+  // { x: 2, y: 0 },
+  // { x: 0, y: 2 },
+  // { x: 4, y: 4 },
+  // { x: 4, y: 2 },
+  // { x: 3, y: 1 },
+  // { x: 4, y: 0 },
+  // { x: 2, y: 4 },
+  // { x: 3, y: 3 },
+  // { x: 1, y: 3 },
+  // { x: 3, y: 0 },
+  // { x: 2, y: 2 },
+  // { x: 4, y: 1 },
+  // { x: 0, y: 1 },
 ]
