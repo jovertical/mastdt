@@ -2,7 +2,7 @@
   "expo": {
     "name": "mastdt",
     "slug": "mastdt",
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["android"],
     "version": "1.0.0",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
@@ -15,8 +15,9 @@
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true
+    "android": {
+      "package": "com.mastdt.mastdt",
+      "versionCode": 1
     }
   }
 }
