@@ -1,11 +1,37 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import { getRepository } from 'typeorm/browser'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
+
 import Text from '@components/Text'
 import { colors } from '@constants/theme'
+import connect from '@database'
+import Task from '@models/Task'
 
 export default function HomeScreen({ navigation }) {
+  const [loading, setLoading] = React.useState(false)
+  const [tasks, setTasks] = React.useState([])
+
+  async function fetchTasks() {
+    try {
+      await connect()
+
+      setLoading(true)
+      const taskRepository = getRepository(Task)
+      setTasks(await taskRepository.find())
+      setLoading(false)
+    } catch (error) {}
+  }
+
+  React.useEffect(() => {
+    fetchTasks()
+  }, [])
+
+  if (loading) {
+    return null
+  }
+
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
@@ -13,9 +39,9 @@ export default function HomeScreen({ navigation }) {
       </Text>
 
       <View style={styles.taskList}>
-        {TASKS.map((task, key) => (
+        {tasks.map((task, key) => (
           <TouchableOpacity
-            key={`task-${key}`}
+            key={task.id}
             style={styles.task}
             disabled={task.locked || task.cleared}
             onPress={() =>
@@ -87,82 +113,3 @@ const styles = StyleSheet.create({
     borderWidth: 0,
   },
 })
-
-const TASKS = [
-  {
-    code: 'REACTION_TIME',
-    title: 'Reaction Time',
-    cleared: false,
-    locked: false,
-  },
-
-  {
-    code: 'DOT_COUNTING',
-    title: 'Dot Counting',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'DOT_COMPARISON',
-    title: 'Dot Comparison',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'SYMBOLIC_NUMBER_COMPARISON',
-    title: 'Symbolic Number Comparison',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'VERBAL_ARABIC_MATCHING',
-    title: 'Verbal Arabic Matching',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'MATCHING_OBJECTS',
-    title: 'Matching Objects',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'QUANTITY_ESTIMATION',
-    title: 'Quantity Estimation',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'NUMBER_LINE_ESTIMATION',
-    title: 'Number Line Estimation',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'ARITHMETIC_CALCULATION',
-    title: 'Arithmetic Calculation',
-    cleared: false,
-    locked: true,
-  },
-
-  {
-    code: 'VERBAL_SHORT_TERM_WORKING_MEMORY',
-    title: 'Verbal Short-Term Working Memory',
-    cleared: false,
-    locked: true,
-  },
-
-  // {
-  //   code: 'SPATIAL_SHORT_TERM_WORKING_MEMORY',
-  //   title: 'Spatial Short-Term Working Memory',
-  //   cleared: false,
-  //   locked: true,
-  // },
-]

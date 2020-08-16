@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { View, StyleSheet, ToastAndroid } from 'react-native'
-import AsyncStorage from '@react-native-community/async-storage'
 import includes from 'lodash/includes'
 import pick from 'lodash/pick'
 import range from 'lodash/range'

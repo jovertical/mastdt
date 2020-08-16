@@ -1,4 +1,5 @@
 import { createConnection, getConnection } from 'typeorm/browser'
+import Task from '@models/Task'
 import User from '@models/User'
 
 export default async () => {
@@ -9,6 +10,7 @@ export default async () => {
       database: 'mastdt',
       driver: require('expo-sqlite'),
       entities: [
+        Task,
         User
       ],
       synchronize: true,

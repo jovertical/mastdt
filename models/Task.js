@@ -7,5 +7,11 @@ export default class Task extends Model {
   code
 
   @Column({ type: 'varchar' })
-  name
+  title
+
+  @Column({ type: 'tinyint', default: false })
+  cleared
+
+  @Column({ type: 'tinyint', default: true })
+  locked
 }
