@@ -1,41 +1,62 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import random from 'lodash/random'
+import Text from '@components/Text'
 import { colors } from '@constants/theme'
 import useTimer from '@hooks/useTimer'
 
-export default function ReactionTimeTaskScreen() {
+export default function ReactionTimeTaskScreen({ navigation }) {
   const clock = useTimer()
   const [entries, setEntries] = React.useState([])
-  const [position, setPosition] = React.useState({ x: 0, y: 1 })
+  const [position, setPosition] = React.useState(sequence[0])
+  const [completed, setCompleted] = React.useState(false)
 
-  function handlePress() {
+  function handlePressed() {
     setEntries((prevEntries) => prevEntries.concat(clock.time))
 
     clock.reset()
   }
 
   React.useEffect(() => {
-    clock.start()
+    if (!completed) {
+      return
+    }
 
-    // setPosition({
-    //   x: random(1, 5),
-    //   y: random(1, 5),
-    // })
+    const timeout = setTimeout(() => {
+      navigation.navigate('Home')
+    }, 3000)
+
+    return () => clearTimeout(timeout)
+  }, [completed])
+
+  React.useEffect(() => {
+    if (entries.length === sequence.length) {
+      return setCompleted(true)
+    }
+
+    if (entries.length > 0) {
+      setPosition(sequence[entries.length])
+    }
+
+    clock.start()
   }, [entries])
 
   return (
     <View style={styles.root}>
-      <TouchableOpacity
-        style={[
-          styles.object,
-          {
-            left: `${20 * position.x}%`,
-            top: `${20 * position.y}%`,
-          },
-        ]}
-        onPress={handlePress}
-      />
+      {completed ? (
+        <Text size="lg">Amazing!</Text>
+      ) : (
+        <View
+          style={[
+            styles.cell,
+            {
+              top: `${20 * position.y}%`,
+              left: `${20 * position.x}%`,
+            },
+          ]}
+        >
+          <TouchableOpacity style={[styles.object]} onPress={handlePressed} />
+        </View>
+      )}
     </View>
   )
 }
@@ -47,7 +68,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 30,
     position: 'relative',
-    borderWidth: 1,
+  },
+
+  cell: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    width: '20%',
+    height: '20%',
   },
 
   object: {
@@ -55,6 +84,33 @@ const styles = StyleSheet.create({
     height: 40,
     backgroundColor: colors['blue-500'],
     borderRadius: 100,
-    position: 'absolute',
   },
 })
+
+const sequence = [
+  { x: 3, y: 4 },
+  { x: 0, y: 0 },
+  { x: 1, y: 2 },
+  { x: 1, y: 4 },
+  { x: 2, y: 1 },
+  { x: 3, y: 2 },
+  { x: 1, y: 0 },
+  { x: 1, y: 1 },
+  { x: 0, y: 4 },
+  { x: 2, y: 3 },
+  { x: 0, y: 3 },
+  { x: 4, y: 3 },
+  { x: 2, y: 0 },
+  { x: 0, y: 2 },
+  { x: 4, y: 4 },
+  { x: 4, y: 2 },
+  { x: 3, y: 1 },
+  { x: 4, y: 0 },
+  { x: 2, y: 4 },
+  { x: 3, y: 3 },
+  { x: 1, y: 3 },
+  { x: 3, y: 0 },
+  { x: 2, y: 2 },
+  { x: 4, y: 1 },
+  { x: 0, y: 1 },
+]
