@@ -1,23 +1,23 @@
-import * as React from 'react';
-import { View, StyleSheet, ToastAndroid } from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
-import includes from 'lodash/includes';
-import pick from 'lodash/pick';
-import range from 'lodash/range';
-import { getRepository } from 'typeorm/browser';
+import * as React from 'react'
+import { View, StyleSheet, ToastAndroid } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
+import includes from 'lodash/includes'
+import pick from 'lodash/pick'
+import range from 'lodash/range'
+import { getRepository } from 'typeorm/browser'
 
-import Button from '@components/Button';
-import Picker from '@components/Picker';
-import PickerItem from '@components/PickerItem';
-import Text from '@components/Text';
-import TextInput from '@components/TextInput';
-import connect from '@database';
-import useDisableBack from '@hooks/useDisableBack';
-import useForm from '@hooks/useForm';
-import User from '@models/User';
+import Button from '@components/Button'
+import Picker from '@components/Picker'
+import PickerItem from '@components/PickerItem'
+import Text from '@components/Text'
+import TextInput from '@components/TextInput'
+import connect from '@database'
+import useDisableBack from '@hooks/useDisableBack'
+import useForm from '@hooks/useForm'
+import User from '@models/User'
 
 export default function RegisterScreen({ navigation }) {
-  useDisableBack();
+  useDisableBack()
 
   const { values, onChange } = useForm({
     // first_name: '',
@@ -33,54 +33,54 @@ export default function RegisterScreen({ navigation }) {
     gender: 'male',
     age: 7,
     grade: 2,
-  });
+  })
 
-  const [first, setFirst] = React.useState(true);
+  const [first, setFirst] = React.useState(true)
 
   function handleNext() {
     if (values.first_name === '' || values.last_name === '') {
-      return ToastAndroid.show(`What's your name?`, ToastAndroid.SHORT);
+      return ToastAndroid.show(`What's your name?`, ToastAndroid.SHORT)
     }
 
-    setFirst(false);
+    setFirst(false)
   }
 
   function handleBack() {
-    setFirst(true);
+    setFirst(true)
   }
 
   function handleGenderChanged(value) {
     if (value !== null) {
-      onChange('gender', value);
+      onChange('gender', value)
     }
   }
 
   function handleAgeChanged(value) {
     if (value !== null) {
-      onChange('age', value);
+      onChange('age', value)
     }
   }
 
   function handleGradeChanged(value) {
     if (value !== null) {
-      onChange('grade', value);
+      onChange('grade', value)
     }
   }
 
   async function storeUser(attributes) {
-    await connect();
+    await connect()
 
-    const user = new User();
+    const user = new User()
 
-    user.first_name = attributes.first_name;
-    user.middle_name = attributes.middle_name;
-    user.last_name = attributes.last_name;
-    user.gender = attributes.gender;
-    user.age = attributes.age;
-    user.grade = attributes.grade;
+    user.first_name = attributes.first_name
+    user.middle_name = attributes.middle_name
+    user.last_name = attributes.last_name
+    user.gender = attributes.gender
+    user.age = attributes.age
+    user.grade = attributes.grade
 
-    const userRepository = getRepository(User);
-    return userRepository.save(user);
+    const userRepository = getRepository(User)
+    return userRepository.save(user)
   }
 
   async function handleSubmit() {
@@ -88,19 +88,19 @@ export default function RegisterScreen({ navigation }) {
       return ToastAndroid.show(
         `Let us know these details first :)`,
         ToastAndroid.SHORT,
-      );
+      )
     }
 
     try {
-      const user = await storeUser(values);
+      const user = await storeUser(values)
 
-      navigation.navigate('Home');
-      ToastAndroid.show(`Welcome ${user.first_name}!`, ToastAndroid.SHORT);
+      navigation.navigate('Home')
+      ToastAndroid.show(`Welcome ${user.first_name}!`, ToastAndroid.SHORT)
     } catch (error) {
       ToastAndroid.show(
         error?.message || 'Something went wrong',
         ToastAndroid.SHORT,
-      );
+      )
     }
   }
 
@@ -202,7 +202,7 @@ export default function RegisterScreen({ navigation }) {
         </View>
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -238,4 +238,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginTop: 30,
   },
-});
+})

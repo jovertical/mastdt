@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 /**
- * @return {output}
+ * @return {returnType}
  */
 export default function useTimer() {
   const [running, setRunning] = React.useState(false)
@@ -20,7 +20,17 @@ export default function useTimer() {
   }
 
   React.useEffect(() => {
-    // 
+    if (!running) {
+      return
+    }
+
+    const interval = setInterval(() => {
+      setTime(prevTime => prevTime + 0.1)
+    }, 100)
+
+    return () => {
+      clearInterval(interval)
+    }
   }, [running])
 
   return {
@@ -32,7 +42,7 @@ export default function useTimer() {
   }
 }
 
-const output = {
+const returnType = {
   running: Boolean,
   stop: Function,
   start: Function,

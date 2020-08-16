@@ -1,7 +1,7 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { Text, TextProps } from 'react-native';
-import { colors } from '@constants/theme';
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import { Text, TextProps } from 'react-native'
+import { colors } from '@constants/theme'
 
 /**
  * @param {TextProps} props
@@ -28,11 +28,11 @@ export default function XText({
     >
       {children}
     </Text>
-  );
+  )
 }
 
 XText.propTypes = {
   color: PropTypes.string,
   weight: PropTypes.oneOf(['light', 'regular', 'semibold']),
   size: PropTypes.oneOf(['base', 'lg', 'xl']),
-};
+}

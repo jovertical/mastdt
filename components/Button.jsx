@@ -1,8 +1,8 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { TouchableOpacity, TouchableWithoutFeedbackProps } from 'react-native';
-import Text from '@components/Text';
-import { colors } from '@constants/theme';
+import * as React from 'react'
+import PropTypes from 'prop-types'
+import { TouchableOpacity, TouchableWithoutFeedbackProps } from 'react-native'
+import Text from '@components/Text'
+import { colors } from '@constants/theme'
 
 /**
  * @param {TouchableWithoutFeedbackProps} props
@@ -28,10 +28,10 @@ export default function Button({
     >
       <Text color="white">{title}</Text>
     </TouchableOpacity>
-  );
+  )
 }
 
 Button.propTypes = {
   title: PropTypes.string.isRequired,
   color: PropTypes.string,
-};
+}

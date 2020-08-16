@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { TextInput, StyleSheet, TextInputProps } from 'react-native';
-import { colors } from '@constants/theme';
+import * as React from 'react'
+import { TextInput, StyleSheet, TextInputProps } from 'react-native'
+import { colors } from '@constants/theme'
 
 /**
  * @param {TextInputProps} props
@@ -14,7 +14,7 @@ export default function XTextInput({ style, ...props }) {
         {...props}
       />
     </React.Fragment>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
     fontFamily: 'inter-medium',
     fontSize: 14,
   },
-});
+})

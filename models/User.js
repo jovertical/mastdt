@@ -1,23 +1,23 @@
-import { Entity, Column } from 'typeorm/browser';
-import Model from './Model';
+import { Entity, Column } from 'typeorm/browser'
+import Model from './Model'
 
 @Entity('users')
 export default class User extends Model {
   @Column({ type: 'varchar' })
-  first_name;
+  first_name
 
   @Column({ type: 'varchar', nullable: true })
-  middle_name;
+  middle_name
 
   @Column({ type: 'varchar' })
-  last_name;
+  last_name
 
   @Column({ type: 'varchar' })
-  gender;
+  gender
 
   @Column({ type: 'smallint' })
-  age;
+  age
 
   @Column({ type: 'smallint' })
-  grade;
+  grade
 }

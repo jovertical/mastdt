@@ -1,14 +1,14 @@
-import * as React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import camelCase from 'lodash/camelCase';
-import upperFirst from 'lodash/upperFirst';
-import Text from '@components/Text';
-import { colors } from '@constants/theme';
+import * as React from 'react'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
+import camelCase from 'lodash/camelCase'
+import upperFirst from 'lodash/upperFirst'
+import Text from '@components/Text'
+import { colors } from '@constants/theme'
 
 export default function HomeScreen({ navigation }) {
   React.useEffect(() => {
-    console.log();
-  }, []);
+    console.log()
+  }, [])
 
   return (
     <View style={styles.root}>
@@ -41,7 +41,7 @@ export default function HomeScreen({ navigation }) {
         ))}
       </View>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors['gray-500'],
     borderWidth: 0,
   },
-});
+})
 
 const TASKS = [
   {
@@ -158,4 +158,4 @@ const TASKS = [
   //   cleared: false,
   //   locked: true,
   // },
-];
+]

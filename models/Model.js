@@ -2,11 +2,11 @@ import { PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'type
 
 export default class Model {
   @PrimaryGeneratedColumn()
-  id;
+  id
 
   @CreateDateColumn()
-  created_at;
+  created_at
 
   @UpdateDateColumn()
-  updated_at;
+  updated_at
 }

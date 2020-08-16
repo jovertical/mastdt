@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import Button from '@components/Button';
-import Text from '@components/Text';
+import * as React from 'react'
+import { View, StyleSheet } from 'react-native'
+import Button from '@components/Button'
+import Text from '@components/Text'
 
 export default function WelcomeScreen({ navigation }) {
   return (
@@ -20,7 +20,7 @@ export default function WelcomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Register')}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -29,4 +29,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})

@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { View, Text } from 'react-native';
+import * as React from 'react'
+import { View, Text } from 'react-native'
 
 export default function LoadingScreen() {
   return (
@@ -12,5 +12,5 @@ export default function LoadingScreen() {
     >
       <Text>Please Wait</Text>
     </View>
-  );
+  )
 }

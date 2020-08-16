@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { StyleSheet, PickerProps, View } from 'react-native';
-import { Picker } from '@react-native-community/picker';
-import { colors } from '@constants/theme';
+import * as React from 'react'
+import { StyleSheet, PickerProps, View } from 'react-native'
+import { Picker } from '@react-native-community/picker'
+import { colors } from '@constants/theme'
 
 /**
  * @param {PickerProps} props
@@ -17,7 +17,7 @@ export default function XPicker({ style, ...props }) {
         {...props}
       />
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -34,4 +34,4 @@ const styles = StyleSheet.create({
     fontFamily: 'inter-medium',
     fontSize: 14,
   },
-});
+})
