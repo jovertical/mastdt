@@ -10,13 +10,12 @@ import Picker from '@components/Picker'
 import PickerItem from '@components/PickerItem'
 import Text from '@components/Text'
 import TextInput from '@components/TextInput'
-import connect from '@database'
-import useDisableBack from '@hooks/useDisableBack'
+import SessionContext from '@contexts/SessionContext'
 import useForm from '@hooks/useForm'
 import User from '@models/User'
 
 export default function RegisterScreen({ navigation }) {
-  useDisableBack()
+  const sessionContext = React.useContext(SessionContext)
 
   const { values, onChange } = useForm({
     // first_name: '',
@@ -67,8 +66,6 @@ export default function RegisterScreen({ navigation }) {
   }
 
   async function storeUser(attributes) {
-    await connect()
-
     const user = new User()
 
     user.first_name = attributes.first_name
@@ -92,6 +89,7 @@ export default function RegisterScreen({ navigation }) {
 
     try {
       const user = await storeUser(values)
+      sessionContext.start(user)
 
       navigation.navigate('Home')
       ToastAndroid.show(`Welcome ${user.first_name}!`, ToastAndroid.SHORT)

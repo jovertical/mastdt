@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm/browser'
+import { Entity, Column, OneToMany } from 'typeorm/browser'
 import Model from './Model'
+import TaskActivity from './TaskActivity'
 
 @Entity('tasks')
 export default class Task extends Model {
@@ -9,9 +10,6 @@ export default class Task extends Model {
   @Column({ type: 'varchar' })
   title
 
-  @Column({ type: 'tinyint', default: false })
-  cleared
-
-  @Column({ type: 'tinyint', default: true })
-  locked
+  @OneToMany((type) => TaskActivity, (taskActivity) => taskActivity.task)
+  activities
 }

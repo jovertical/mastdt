@@ -4,11 +4,11 @@ import { getRepository } from 'typeorm/browser'
 
 import Text from '@components/Text'
 import { colors } from '@constants/theme'
-import connect from '@database'
 import useTimer from '@hooks/useTimer'
-import Task from '@models/Task'
+import TaskActivity from '@models/TaskActivity'
 
-export default function ReactionTimeTaskScreen({ navigation }) {
+export default function ReactionTimeTaskScreen({ navigation, route }) {
+  const taskActivityRepository = getRepository(TaskActivity)
   const clock = useTimer()
   const [entries, setEntries] = React.useState([])
   const [position, setPosition] = React.useState(sequence[0])
@@ -20,17 +20,19 @@ export default function ReactionTimeTaskScreen({ navigation }) {
     clock.reset()
   }
 
+  function completeTask() {
+    return taskActivityRepository.update(route.params.activity, {
+      cleared: true,
+    })
+  }
+
   React.useEffect(() => {
     if (!completed) {
       return
     }
 
     const timeout = setTimeout(async () => {
-      await connect()
-
-      const taskRepository = getRepository(Task)
-      await taskRepository.update({ code: 'REACTION_TIME' }, { cleared: true })
-      await taskRepository.update({ code: 'DOT_COUNTING' }, { locked: false })
+      await completeTask()
 
       navigation.navigate('Home', {
         refresh: true,

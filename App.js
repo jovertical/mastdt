@@ -9,7 +9,8 @@ import InterLightFont from '@assets/fonts/Inter-Light.otf'
 import InterRegularFont from '@assets/fonts/Inter-Regular.otf'
 import InterMediumFont from '@assets/fonts/Inter-Medium.otf'
 import InterSemiBoldFont from '@assets/fonts/Inter-SemiBold.otf'
-import TaskContext from '@contexts/TaskContext'
+import SessionContext from '@contexts/SessionContext'
+import connect from '@database'
 import seeder from '@database/seeds'
 import LoadingScreen from '@screens/LoadingScreen'
 import WelcomeScreen from '@screens/WelcomeScreen'
@@ -29,15 +30,37 @@ function App() {
             ...prevState,
             bootstrapped: true,
           }
+
+        case 'SET_SESSION':
+          return {
+            ...prevState,
+            session: action.session,
+          }
       }
     },
     {
+      session: {},
       bootstrapped: false,
-      loading: false,
     },
   )
 
+  function startSession(user) {
+    dispatch({
+      type: 'SET_SESSION',
+      session: {
+        startedAt: new Date().toISOString(),
+        user,
+      },
+    })
+  }
+
   async function unpack() {
+    const unpacked = await AsyncStorage.getItem('_unpacked')
+
+    if (unpacked) {
+      return
+    }
+
     await seeder.run()
 
     return AsyncStorage.setItem('_unpacked', new Date().toISOString())
@@ -54,12 +77,8 @@ function App() {
 
   React.useEffect(() => {
     const bootstrap = async () => {
-      const unpacked = await AsyncStorage.getItem('_unpacked')
-
-      if (!unpacked) {
-        await unpack()
-      }
-
+      await connect()
+      await unpack()
       await loadFonts()
 
       dispatch({ type: 'SET_BOOTSTRAPPED' })
@@ -70,9 +89,11 @@ function App() {
 
   return (
     <NavigationContainer>
-      <TaskContext.Provider>
+      <SessionContext.Provider
+        value={{ ...state.session, start: startSession }}
+      >
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          {state.loading || !state.bootstrapped ? (
+          {!state.bootstrapped ? (
             <Stack.Screen name="Loading" component={LoadingScreen} />
           ) : (
             <React.Fragment>
@@ -90,7 +111,7 @@ function App() {
             </React.Fragment>
           )}
         </Stack.Navigator>
-      </TaskContext.Provider>
+      </SessionContext.Provider>
     </NavigationContainer>
   )
 }

@@ -7,7 +7,6 @@ export default class TasksTableSeeder {
       {
         code: 'REACTION_TIME',
         title: 'Reaction Time',
-        locked: false
       },
 
       {

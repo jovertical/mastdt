@@ -2,30 +2,79 @@ import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { getRepository } from 'typeorm/browser'
 import camelCase from 'lodash/camelCase'
+import each from 'lodash/each'
 import upperFirst from 'lodash/upperFirst'
 
 import Text from '@components/Text'
 import { colors } from '@constants/theme'
-import connect from '@database'
+import SessionContext from '@contexts/SessionContext'
 import Task from '@models/Task'
+import TaskActivity from '@models/TaskActivity'
+import User from '@models/User'
 
 export default function HomeScreen({ navigation, route }) {
+  const taskRepository = getRepository(Task)
+  const taskActivityRepository = getRepository(TaskActivity)
+  const session = React.useContext(SessionContext)
   const [loading, setLoading] = React.useState(false)
   const [tasks, setTasks] = React.useState([])
+  const [activities, setActivities] = React.useState(
+    session.user.activities || [],
+  )
+
+  function startTask(activity) {
+    navigation.navigate(
+      upperFirst(camelCase(activity.task?.code.toLowerCase() + 'Task')),
+      { activity: activity.id },
+    )
+  }
+
+  async function fetchActivities() {
+    //
+  }
+
+  async function preloadActivities() {
+    try {
+      if (activities.length > 0) {
+        return
+      }
+
+      setLoading(true)
+
+      each(tasks, async (task, key) => {
+        const activity = new TaskActivity()
+        activity.locked = key !== 0
+        activity.cleared = false
+        activity.task = task
+        activity.user = session.user
+        await taskActivityRepository.save(activity)
+      })
+
+      await fetchActivities()
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   async function fetchTasks() {
     try {
-      await connect()
-
       setLoading(true)
-      const taskRepository = getRepository(Task)
-      setTasks(await taskRepository.find())
+
+      const tasks = await taskRepository.find()
+      setTasks(tasks)
+
       setLoading(false)
     } catch (error) {}
   }
 
   React.useEffect(() => {
-    fetchTasks()
+    const bootstrap = async () => {
+      await fetchTasks()
+      preloadActivities()
+    }
+
+    bootstrap()
   }, [route.params?.refresh])
 
   if (loading) {
@@ -35,32 +84,30 @@ export default function HomeScreen({ navigation, route }) {
   return (
     <View style={styles.root}>
       <Text weight="semibold" size="xl">
-        Tasks
+        You can do it {session.user.first_name}!
       </Text>
 
       <View style={styles.taskList}>
-        {tasks.map((task, key) => (
+        {activities.map((activity, key) => (
           <TouchableOpacity
-            key={task.id}
+            key={activity.id}
             style={styles.task}
-            disabled={task.locked || task.cleared}
-            onPress={() =>
-              navigation.navigate(
-                upperFirst(camelCase(task.code.toLowerCase() + 'Task')),
-              )
-            }
+            disabled={activity.locked || activity.cleared}
+            onPress={() => startTask(activity)}
           >
             <View
               style={[
                 styles.body,
-                task.locked && styles.locked,
-                task.cleared && styles.cleared,
+                activity.locked && styles.locked,
+                activity.cleared && styles.cleared,
               ]}
             >
               <Text
                 weight="semibold"
                 size="lg"
-                color={task.locked || task.cleared ? 'white' : 'gray-500'}
+                color={
+                  activity.locked || activity.cleared ? 'white' : 'gray-500'
+                }
               >
                 {key + 1}
               </Text>

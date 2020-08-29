@@ -1,5 +1,6 @@
-import { Entity, Column } from 'typeorm/browser'
+import { Entity, Column, OneToMany } from 'typeorm/browser'
 import Model from './Model'
+import TaskActivity from './TaskActivity'
 
 @Entity('users')
 export default class User extends Model {
@@ -20,4 +21,9 @@ export default class User extends Model {
 
   @Column({ type: 'smallint' })
   grade
+
+  @OneToMany((type) => TaskActivity, (taskActivity) => taskActivity.user, {
+    eager: true,
+  })
+  activities
 }
