@@ -20,6 +20,12 @@ export default function ReactionTimeTaskScreen({ navigation, route }) {
     clock.reset()
   }
 
+  function unlockNextTask() {
+    return taskActivityRepository.update(route.params.nextActivity, {
+      locked: false,
+    })
+  }
+
   function completeTask() {
     return taskActivityRepository.update(route.params.activity, {
       cleared: true,
@@ -33,6 +39,7 @@ export default function ReactionTimeTaskScreen({ navigation, route }) {
 
     const timeout = setTimeout(async () => {
       await completeTask()
+      await unlockNextTask()
 
       navigation.navigate('Home', {
         refresh: true,

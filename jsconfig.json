@@ -12,7 +12,8 @@
       "@database/*": ["./database/*"],
       "@hooks/*": ["./hooks/*"],
       "@models/*": ["./models/*"],
-      "@screens/*": ["./screens/*"]
+      "@screens/*": ["./screens/*"],
+      "@utilities/*": ["./utilities/*"]
     }
   },
   "exclude": ["./node_modules"]
