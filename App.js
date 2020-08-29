@@ -1,9 +1,8 @@
 import * as React from 'react'
-import { BackHandler } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
+import AsyncStorage from '@react-native-community/async-storage'
 import * as Font from 'expo-font'
-import * as Permissions from 'expo-permissions'
 import 'reflect-metadata'
 
 import InterLightFont from '@assets/fonts/Inter-Light.otf'
@@ -22,37 +21,26 @@ import DotCountingScreen from '@screens/Tasks/DotCountingScreen'
 const Stack = createStackNavigator()
 
 function App() {
-  const [state, dispatch] = React.useReducer((prevState, action) => {
-    switch (action.type) {
-      case 'SET_BOOTSTRAPPED':
-        return {
-          ...prevState,
-          bootstrapped: true
-        }
-    }
-  }, {
-    bootstrapped: false,
-    loading: false,
-  })
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'SET_BOOTSTRAPPED':
+          return {
+            ...prevState,
+            bootstrapped: true,
+          }
+      }
+    },
+    {
+      bootstrapped: false,
+      loading: false,
+    },
+  )
 
-  async function askPermissions() {
-    const { status } = await Permissions.askAsync(Permissions.CALENDAR)
+  async function unpack() {
+    await seeder.run()
 
-    if (status !== 'granted') {
-      return BackHandler.exitApp()
-    }
-
-    return seeder.run()
-  }
-
-  async function checkPermissions() {
-    const { status } = await Permissions.getAsync(
-      Permissions.CALENDAR,
-    )
-
-    if (status !== 'granted') {
-      askPermissions()
-    }
+    return AsyncStorage.setItem('_unpacked', new Date().toISOString())
   }
 
   function loadFonts() {
@@ -66,7 +54,12 @@ function App() {
 
   React.useEffect(() => {
     const bootstrap = async () => {
-      await checkPermissions()
+      const unpacked = await AsyncStorage.getItem('_unpacked')
+
+      if (!unpacked) {
+        await unpack()
+      }
+
       await loadFonts()
 
       dispatch({ type: 'SET_BOOTSTRAPPED' })
@@ -82,17 +75,23 @@ function App() {
           {state.loading || !state.bootstrapped ? (
             <Stack.Screen name="Loading" component={LoadingScreen} />
           ) : (
-              <React.Fragment>
-                <Stack.Screen name="Welcome" component={WelcomeScreen} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Home" component={HomeScreen} />
-                <Stack.Screen name="ReactionTimeTask" component={ReactionTimeTaskScreen} />
-                <Stack.Screen name="DotCountingTask" component={DotCountingScreen} />
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              <Stack.Screen name="Welcome" component={WelcomeScreen} />
+              <Stack.Screen name="Register" component={RegisterScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen
+                name="ReactionTimeTask"
+                component={ReactionTimeTaskScreen}
+              />
+              <Stack.Screen
+                name="DotCountingTask"
+                component={DotCountingScreen}
+              />
+            </React.Fragment>
+          )}
         </Stack.Navigator>
       </TaskContext.Provider>
-    </NavigationContainer >
+    </NavigationContainer>
   )
 }
 
