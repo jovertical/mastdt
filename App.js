@@ -17,7 +17,7 @@ import WelcomeScreen from '@screens/WelcomeScreen'
 import RegisterScreen from '@screens/RegisterScreen'
 import HomeScreen from '@screens/HomeScreen'
 import ReactionTimeTaskScreen from '@screens/Tasks/ReactionTimeTaskScreen'
-import DotCountingScreen from '@screens/Tasks/DotCountingScreen'
+import DotCountingTaskScreen from '@screens/Tasks/DotCountingTaskScreen'
 
 const Stack = createStackNavigator()
 
@@ -106,7 +106,7 @@ function App() {
               />
               <Stack.Screen
                 name="DotCountingTask"
-                component={DotCountingScreen}
+                component={DotCountingTaskScreen}
               />
             </React.Fragment>
           )}
