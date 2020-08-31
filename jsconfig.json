@@ -12,6 +12,7 @@
       "@database/*": ["./database/*"],
       "@hooks/*": ["./hooks/*"],
       "@models/*": ["./models/*"],
+      "@queries/*": ["./queries/*"],
       "@screens/*": ["./screens/*"],
       "@utilities/*": ["./utilities/*"]
     }

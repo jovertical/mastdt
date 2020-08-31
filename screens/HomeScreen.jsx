@@ -74,44 +74,46 @@ export default function HomeScreen({ navigation, route }) {
     bootstrap()
   }, [route.params?.refresh])
 
-  if (loading) {
-    return <Text>Please wait...</Text>
-  }
-
   return (
     <View style={styles.root}>
-      <Text weight="semibold" size="xl">
-        You can do it {session.user.first_name}!
-      </Text>
+      {loading ? (
+        <Text>Please wait...</Text>
+      ) : (
+        <React.Fragment>
+          <Text weight="semibold" size="xl">
+            You can do it {session.user.first_name}!
+          </Text>
 
-      <View style={styles.taskList}>
-        {activities.map((activity, key) => (
-          <TouchableOpacity
-            key={activity.id}
-            style={styles.task}
-            disabled={activity.locked || activity.cleared}
-            onPress={() => startTask(activity, activities[key + 1])}
-          >
-            <View
-              style={[
-                styles.body,
-                activity.locked && styles.locked,
-                activity.cleared && styles.cleared,
-              ]}
-            >
-              <Text
-                weight="semibold"
-                size="lg"
-                color={
-                  activity.locked || activity.cleared ? 'white' : 'gray-500'
-                }
+          <View style={styles.taskList}>
+            {activities.map((activity, key) => (
+              <TouchableOpacity
+                key={activity.id}
+                style={styles.task}
+                disabled={activity.locked || activity.cleared}
+                onPress={() => startTask(activity, activities[key + 1])}
               >
-                {key + 1}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </View>
+                <View
+                  style={[
+                    styles.body,
+                    activity.locked && styles.locked,
+                    activity.cleared && styles.cleared,
+                  ]}
+                >
+                  <Text
+                    weight="semibold"
+                    size="lg"
+                    color={
+                      activity.locked || activity.cleared ? 'white' : 'gray-500'
+                    }
+                  >
+                    {key + 1}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </React.Fragment>
+      )}
     </View>
   )
 }

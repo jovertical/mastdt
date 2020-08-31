@@ -16,8 +16,10 @@ import LoadingScreen from '@screens/LoadingScreen'
 import WelcomeScreen from '@screens/WelcomeScreen'
 import RegisterScreen from '@screens/RegisterScreen'
 import HomeScreen from '@screens/HomeScreen'
+import ScoreCardScreen from '@screens/ScoreCardScreen'
 import ReactionTimeTaskScreen from '@screens/Tasks/ReactionTimeTaskScreen'
 import DotCountingTaskScreen from '@screens/Tasks/DotCountingTaskScreen'
+import DotComparisonTaskScreen from '@screens/Tasks/DotComparisonTaskScreen'
 
 const Stack = createStackNavigator()
 
@@ -100,6 +102,7 @@ function App() {
               <Stack.Screen name="Welcome" component={WelcomeScreen} />
               <Stack.Screen name="Register" component={RegisterScreen} />
               <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="ScoreCard" component={ScoreCardScreen} />
               <Stack.Screen
                 name="ReactionTimeTask"
                 component={ReactionTimeTaskScreen}
@@ -107,6 +110,10 @@ function App() {
               <Stack.Screen
                 name="DotCountingTask"
                 component={DotCountingTaskScreen}
+              />
+              <Stack.Screen
+                name="DotComparisonTask"
+                component={DotComparisonTaskScreen}
               />
             </React.Fragment>
           )}

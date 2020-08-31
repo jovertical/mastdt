@@ -11,6 +11,9 @@ export default class TaskActivity extends Model {
   @Column({ type: 'tinyint', default: true })
   locked
 
+  @Column({ type: 'simple-json', nullable: true })
+  data
+
   @ManyToOne((type) => Task, (task) => task.activities, { eager: true })
   task
 

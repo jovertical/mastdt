@@ -1,83 +1,29 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { getRepository } from 'typeorm/browser'
 
-import Text from '@components/Text'
 import { colors } from '@constants/theme'
-import useTimer from '@hooks/useTimer'
-import TaskActivity from '@models/TaskActivity'
+import useTask from '@hooks/useTask'
 
-export default function ReactionTimeTaskScreen({ navigation, route }) {
-  const taskActivityRepository = getRepository(TaskActivity)
-  const clock = useTimer()
-  const [entries, setEntries] = React.useState([])
-  const [position, setPosition] = React.useState(sequence[0])
-  const [completed, setCompleted] = React.useState(false)
+export default function ReactionTimeTaskScreen(props) {
+  const task = useTask({ items, screenProps: props })
 
   function handlePressed() {
-    setEntries((prevEntries) => prevEntries.concat(clock.time))
-
-    clock.reset()
+    task.answer()
   }
-
-  function unlockNextTask() {
-    return taskActivityRepository.update(route.params.nextActivity, {
-      locked: false,
-    })
-  }
-
-  function completeTask() {
-    return taskActivityRepository.update(route.params.activity, {
-      cleared: true,
-    })
-  }
-
-  React.useEffect(() => {
-    if (!completed) {
-      return
-    }
-
-    const timeout = setTimeout(async () => {
-      await completeTask()
-      await unlockNextTask()
-
-      navigation.navigate('Home', {
-        refresh: true,
-      })
-    }, 3000)
-
-    return () => clearTimeout(timeout)
-  }, [completed])
-
-  React.useEffect(() => {
-    if (entries.length === sequence.length) {
-      return setCompleted(true)
-    }
-
-    if (entries.length > 0) {
-      setPosition(sequence[entries.length])
-    }
-
-    clock.start()
-  }, [entries])
 
   return (
     <View style={styles.root}>
-      {completed ? (
-        <Text size="lg">Amazing!</Text>
-      ) : (
-        <View
-          style={[
-            styles.cell,
-            {
-              top: `${20 * position.y}%`,
-              left: `${20 * position.x}%`,
-            },
-          ]}
-        >
-          <TouchableOpacity style={[styles.object]} onPress={handlePressed} />
-        </View>
-      )}
+      <View
+        style={[
+          styles.cell,
+          {
+            top: `${20 * task.currentItem.y}%`,
+            left: `${20 * task.currentItem.x}%`,
+          },
+        ]}
+      >
+        <TouchableOpacity style={[styles.object]} onPress={handlePressed} />
+      </View>
     </View>
   )
 }
@@ -108,7 +54,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const sequence = [
+const items = [
   { x: 3, y: 4 },
   { x: 0, y: 0 },
   { x: 1, y: 2 },

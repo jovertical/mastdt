@@ -16,6 +16,7 @@ module.exports = function (api) {
             '@database': './database',
             '@hooks': './hooks',
             '@models': './models',
+            '@queries': './queries',
             '@screens': './screens',
             '@utilities': './utilities',
           },
