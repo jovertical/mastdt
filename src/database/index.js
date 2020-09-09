@@ -1,7 +1,7 @@
 import { createConnection, getConnection } from 'typeorm/browser'
-import Task from '@models/Task'
-import TaskActivity from '@models/TaskActivity'
-import User from '@models/User'
+import Task from '~/models/Task'
+import TaskActivity from '~/models/TaskActivity'
+import User from '~/models/User'
 
 export default () => {
   try {

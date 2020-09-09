@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StyleSheet, PickerProps, View } from 'react-native'
 import { Picker } from '@react-native-community/picker'
-import { colors } from '@constants/theme'
+import { colors } from '~/constants/theme'
 
 /**
  * @param {PickerProps} props

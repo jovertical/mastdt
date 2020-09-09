@@ -1,8 +1,8 @@
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity, TouchableWithoutFeedbackProps } from 'react-native'
-import Text from '@components/Text'
-import { colors } from '@constants/theme'
+import Text from '~/components/Text'
+import { colors } from '~/constants/theme'
 
 /**
  * @param {TouchableWithoutFeedbackProps} props

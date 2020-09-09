@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { View, StyleSheet } from 'react-native'
-import NumberInput from '@components/NumberInput'
-import { colors } from '@constants/theme'
-import useNumberInput from '@hooks/useNumberInput'
-import useTask from '@hooks/useTask'
+import NumberInput from '~/components/NumberInput'
+import { colors } from '~/constants/theme'
+import useNumberInput from '~/hooks/useNumberInput'
+import useTask from '~/hooks/useTask'
 
 export default function DotCountingTaskScreen(props) {
   const task = useTask({ items, screenProps: props })

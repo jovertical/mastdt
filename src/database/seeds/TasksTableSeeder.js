@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm/browser'
-import Task from '@models/Task'
+import Task from '~/models/Task'
 
 export default class TasksTableSeeder {
   static async run() {

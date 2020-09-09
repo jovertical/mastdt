@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm/browser'
-import TaskActivity from '@models/TaskActivity'
+import TaskActivity from '~/models/TaskActivity'
 
 export function unlockTask(id) {
   return getRepository(TaskActivity).update(id, {

@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import range from 'lodash/range'
-import Text from '@components/Text'
-import { colors } from '@constants/theme'
+import Text from '~/components/Text'
+import { colors } from '~/constants/theme'
 
 export default function NumberInput({ numbers, onReset, onSubmit, onAdd }) {
   return (

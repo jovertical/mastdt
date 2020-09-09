@@ -4,11 +4,11 @@ import { getRepository } from 'typeorm/browser'
 import camelCase from 'lodash/camelCase'
 import upperFirst from 'lodash/upperFirst'
 
-import Text from '@components/Text'
-import { colors } from '@constants/theme'
-import SessionContext from '@contexts/SessionContext'
-import Task from '@models/Task'
-import TaskActivity from '@models/TaskActivity'
+import Text from '~/components/Text'
+import { colors } from '~/constants/theme'
+import SessionContext from '~/contexts/SessionContext'
+import Task from '~/models/Task'
+import TaskActivity from '~/models/TaskActivity'
 
 export default function HomeScreen({ navigation, route }) {
   const taskRepository = getRepository(Task)

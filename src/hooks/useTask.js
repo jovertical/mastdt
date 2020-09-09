@@ -1,6 +1,6 @@
 import * as React from 'react'
-import useTimer from '@hooks/useTimer'
-import * as taskActivityQueries from '@queries/taskActivity'
+import useTimer from '~/hooks/useTimer'
+import * as taskActivityQueries from '~/queries/taskActivity'
 
 export default function useTask({ items, screenProps }) {
   const clock = useTimer()

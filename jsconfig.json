@@ -5,16 +5,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
-      "@assets/*": ["./assets/*"],
-      "@components/*": ["./components/*"],
-      "@constants/*": ["./constants/*"],
-      "@contexts/*": ["./contexts/*"],
-      "@database/*": ["./database/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@models/*": ["./models/*"],
-      "@queries/*": ["./queries/*"],
-      "@screens/*": ["./screens/*"],
-      "@utilities/*": ["./utilities/*"]
+      "~/*": ["./src/*"]
     }
   },
   "exclude": ["./node_modules"]

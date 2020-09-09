@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { View, StyleSheet } from 'react-native'
-import Button from '@components/Button'
-import Text from '@components/Text'
+import Button from '~/components/Button'
+import Text from '~/components/Text'
 
 export default function WelcomeScreen({ navigation }) {
   return (

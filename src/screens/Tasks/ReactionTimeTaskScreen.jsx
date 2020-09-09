@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
 
-import { colors } from '@constants/theme'
-import useTask from '@hooks/useTask'
+import { colors } from '~/constants/theme'
+import useTask from '~/hooks/useTask'
 
 export default function ReactionTimeTaskScreen(props) {
   const task = useTask({ items, screenProps: props })

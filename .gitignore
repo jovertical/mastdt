@@ -3,6 +3,7 @@ dist/
 node_modules/**/*
 .expo/*
 npm-debug.*
+*.aab
 *.jks
 *.p8
 *.p12

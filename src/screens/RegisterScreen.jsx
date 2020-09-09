@@ -5,14 +5,14 @@ import pick from 'lodash/pick'
 import range from 'lodash/range'
 import { getRepository } from 'typeorm/browser'
 
-import Button from '@components/Button'
-import Picker from '@components/Picker'
-import PickerItem from '@components/PickerItem'
-import Text from '@components/Text'
-import TextInput from '@components/TextInput'
-import SessionContext from '@contexts/SessionContext'
-import useForm from '@hooks/useForm'
-import User from '@models/User'
+import Button from '~/components/Button'
+import Picker from '~/components/Picker'
+import PickerItem from '~/components/PickerItem'
+import Text from '~/components/Text'
+import TextInput from '~/components/TextInput'
+import SessionContext from '~/contexts/SessionContext'
+import useForm from '~/hooks/useForm'
+import User from '~/models/User'
 
 export default function RegisterScreen({ navigation }) {
   const sessionContext = React.useContext(SessionContext)

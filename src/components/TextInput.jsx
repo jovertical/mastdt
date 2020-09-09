@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { TextInput, StyleSheet, TextInputProps } from 'react-native'
-import { colors } from '@constants/theme'
+import { colors } from '~/constants/theme'
 
 /**
  * @param {TextInputProps} props

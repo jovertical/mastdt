@@ -9,16 +9,7 @@ module.exports = function (api) {
         'module-resolver',
         {
           alias: {
-            '@assets': './assets',
-            '@components': './components',
-            '@constants': './constants',
-            '@contexts': './contexts',
-            '@database': './database',
-            '@hooks': './hooks',
-            '@models': './models',
-            '@queries': './queries',
-            '@screens': './screens',
-            '@utilities': './utilities',
+            '~': './src',
           },
         },
       ],
