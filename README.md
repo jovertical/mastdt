@@ -25,8 +25,8 @@ To build an apk, we can use a tool called [Turtle CLI](https://github.com/expo/t
 
 ```bash
 # First, build the android app bundle:
-make generate_aab
+make aab
 
 # Finally, build the apk from the android app bundle:
-bundletool build-apks --bundle=/path/to/my_app.aab --output=/path/to/my_app.apks
+make apk bundle=/path/to/my_app.aab output=/path/to/my_app.apks
 ```
