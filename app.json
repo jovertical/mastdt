@@ -3,7 +3,7 @@
     "name": "mastdt",
     "slug": "mastdt",
     "platforms": ["android"],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "landscape",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.mastdt.mastdt",
-      "versionCode": 1
+      "versionCode": 2
     }
   }
 }

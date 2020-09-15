@@ -79,11 +79,15 @@ function App() {
 
   React.useEffect(() => {
     const bootstrap = async () => {
-      await connect()
-      await unpack()
-      await loadFonts()
+      try {
+        await connect()
+        await unpack()
+        await loadFonts()
 
-      dispatch({ type: 'SET_BOOTSTRAPPED' })
+        dispatch({ type: 'SET_BOOTSTRAPPED' })
+      } catch (error) {
+        alert(JSON.stringify(error))
+      }
     }
 
     bootstrap()
