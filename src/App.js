@@ -3,13 +3,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import * as Font from 'expo-font'
 
-import InterLightFont from '~/assets/fonts/Inter-Light.otf'
-import InterRegularFont from '~/assets/fonts/Inter-Regular.otf'
-import InterMediumFont from '~/assets/fonts/Inter-Medium.otf'
-import InterSemiBoldFont from '~/assets/fonts/Inter-SemiBold.otf'
+import InterLightFont from 'assets/fonts/Inter-Light.otf'
+import InterRegularFont from 'assets/fonts/Inter-Regular.otf'
+import InterMediumFont from 'assets/fonts/Inter-Medium.otf'
+import InterSemiBoldFont from 'assets/fonts/Inter-SemiBold.otf'
 import SessionContext from '~/contexts/SessionContext'
 import connect from '~/database'
-import * as taskQueries from '~/queries/task'
 import LoadingScreen from '~/screens/LoadingScreen'
 import WelcomeScreen from '~/screens/WelcomeScreen'
 import RegisterScreen from '~/screens/RegisterScreen'
@@ -54,18 +53,6 @@ function App() {
     })
   }
 
-  async function preloadData() {
-    try {
-      const tasksLoaded = await taskQueries.tasksLoaded()
-
-      if (!tasksLoaded) {
-        await taskQueries.createInitialTasks()
-      }
-    } catch (error) {
-      alert(JSON.stringify(error))
-    }
-  }
-
   function loadFonts() {
     return Font.loadAsync({
       'inter-light': InterLightFont,
@@ -79,7 +66,6 @@ function App() {
     const bootstrap = async () => {
       try {
         await connect()
-        await preloadData()
         await loadFonts()
 
         dispatch({ type: 'SET_BOOTSTRAPPED' })

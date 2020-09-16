@@ -9,6 +9,7 @@ import { colors } from '~/constants/theme'
 import SessionContext from '~/contexts/SessionContext'
 import Task from '~/models/Task'
 import TaskActivity from '~/models/TaskActivity'
+import * as taskQueries from '~/queries/task'
 
 export default function HomeScreen({ navigation, route }) {
   const taskRepository = getRepository(Task)
@@ -41,6 +42,16 @@ export default function HomeScreen({ navigation, route }) {
     setActivities(activities)
   }
 
+  async function preloadTasks() {
+    const tasksLoaded = await taskQueries.tasksLoaded()
+
+    if (tasksLoaded) {
+      return
+    }
+
+    return taskQueries.createInitialTasks()
+  }
+
   async function preloadActivities(tasks) {
     if (activities.length > 0) {
       return
@@ -56,19 +67,20 @@ export default function HomeScreen({ navigation, route }) {
     }
   }
 
-  async function fetchTasks() {
-    return taskRepository.find()
-  }
-
   React.useEffect(() => {
     const bootstrap = async () => {
-      setLoading(true)
+      try {
+        setLoading(true)
 
-      const tasks = await fetchTasks()
-      await preloadActivities(tasks)
-      await fetchActivities()
+        await preloadTasks()
+        const tasks = await taskRepository.find()
+        await preloadActivities(tasks)
+        await fetchActivities()
 
-      setLoading(false)
+        setLoading(false)
+      } catch (error) {
+        alert(JSON.stringify(error))
+      }
     }
 
     bootstrap()

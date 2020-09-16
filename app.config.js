@@ -6,9 +6,9 @@ export default {
   platforms: ['android'],
   version: '1.0.0',
   orientation: 'landscape',
-  icon: './src/assets/icon.png',
+  icon: './assets/icon.png',
   splash: {
-    image: './src/assets/splash.png',
+    image: './assets/splash.png',
     resizeMode: 'contain',
     backgroundColor: '#ffffff',
   },
