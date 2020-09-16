@@ -18,19 +18,12 @@ export default function RegisterScreen({ navigation }) {
   const sessionContext = React.useContext(SessionContext)
 
   const { values, onChange } = useForm({
-    // first_name: '',
-    // middle_name: '',
-    // last_name: '',
-    // gender: null,
-    // age: null,
-    // grade: null,
-
-    first_name: 'John',
+    first_name: '',
     middle_name: '',
-    last_name: 'Doe',
-    gender: 'male',
-    age: 7,
-    grade: 2,
+    last_name: '',
+    gender: null,
+    age: null,
+    grade: null,
   })
 
   const [first, setFirst] = React.useState(true)

@@ -1,9 +1,7 @@
 import * as React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import AsyncStorage from '@react-native-community/async-storage'
 import * as Font from 'expo-font'
-import 'reflect-metadata'
 
 import InterLightFont from '~/assets/fonts/Inter-Light.otf'
 import InterRegularFont from '~/assets/fonts/Inter-Regular.otf'
@@ -11,7 +9,7 @@ import InterMediumFont from '~/assets/fonts/Inter-Medium.otf'
 import InterSemiBoldFont from '~/assets/fonts/Inter-SemiBold.otf'
 import SessionContext from '~/contexts/SessionContext'
 import connect from '~/database'
-import seeder from '~/database/seeds'
+import * as taskQueries from '~/queries/task'
 import LoadingScreen from '~/screens/LoadingScreen'
 import WelcomeScreen from '~/screens/WelcomeScreen'
 import RegisterScreen from '~/screens/RegisterScreen'
@@ -56,16 +54,16 @@ function App() {
     })
   }
 
-  async function unpack() {
-    const unpacked = await AsyncStorage.getItem('_unpacked')
+  async function preloadData() {
+    try {
+      const tasksLoaded = await taskQueries.tasksLoaded()
 
-    if (unpacked) {
-      return
+      if (!tasksLoaded) {
+        await taskQueries.createInitialTasks()
+      }
+    } catch (error) {
+      alert(JSON.stringify(error))
     }
-
-    await seeder.run()
-
-    return AsyncStorage.setItem('_unpacked', new Date().toISOString())
   }
 
   function loadFonts() {
@@ -81,7 +79,7 @@ function App() {
     const bootstrap = async () => {
       try {
         await connect()
-        await unpack()
+        await preloadData()
         await loadFonts()
 
         dispatch({ type: 'SET_BOOTSTRAPPED' })
