@@ -8,7 +8,6 @@ import InterRegularFont from 'assets/fonts/Inter-Regular.otf'
 import InterMediumFont from 'assets/fonts/Inter-Medium.otf'
 import InterSemiBoldFont from 'assets/fonts/Inter-SemiBold.otf'
 import SessionContext from '~/contexts/SessionContext'
-import connect from '~/database'
 import LoadingScreen from '~/screens/LoadingScreen'
 import WelcomeScreen from '~/screens/WelcomeScreen'
 import RegisterScreen from '~/screens/RegisterScreen'
@@ -65,7 +64,6 @@ function App() {
   React.useEffect(() => {
     const bootstrap = async () => {
       try {
-        await connect()
         await loadFonts()
 
         dispatch({ type: 'SET_BOOTSTRAPPED' })

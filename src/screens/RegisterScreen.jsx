@@ -11,8 +11,10 @@ import PickerItem from '~/components/PickerItem'
 import Text from '~/components/Text'
 import TextInput from '~/components/TextInput'
 import SessionContext from '~/contexts/SessionContext'
+import connect from '~/database'
 import useForm from '~/hooks/useForm'
 import User from '~/models/User'
+import { alertError } from '~/utilities'
 
 export default function RegisterScreen({ navigation }) {
   const sessionContext = React.useContext(SessionContext)
@@ -59,17 +61,23 @@ export default function RegisterScreen({ navigation }) {
   }
 
   async function storeUser(attributes) {
-    const user = new User()
+    try {
+      await connect()
 
-    user.first_name = attributes.first_name
-    user.middle_name = attributes.middle_name
-    user.last_name = attributes.last_name
-    user.gender = attributes.gender
-    user.age = attributes.age
-    user.grade = attributes.grade
+      const user = new User()
 
-    const userRepository = getRepository(User)
-    return userRepository.save(user)
+      user.first_name = attributes.first_name
+      user.middle_name = attributes.middle_name
+      user.last_name = attributes.last_name
+      user.gender = attributes.gender
+      user.age = attributes.age
+      user.grade = attributes.grade
+
+      const userRepository = getRepository(User)
+      return userRepository.save(user)
+    } catch (error) {
+      alertError(error)
+    }
   }
 
   async function handleSubmit() {

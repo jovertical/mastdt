@@ -7,6 +7,7 @@ import upperFirst from 'lodash/upperFirst'
 import Text from '~/components/Text'
 import { colors } from '~/constants/theme'
 import SessionContext from '~/contexts/SessionContext'
+import connect from '~/database'
 import Task from '~/models/Task'
 import TaskActivity from '~/models/TaskActivity'
 import * as taskQueries from '~/queries/task'
@@ -31,6 +32,8 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   async function fetchActivities() {
+    await connect()
+
     const activities = await taskActivityRepository.find({
       where: {
         user: {
@@ -43,6 +46,8 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   async function preloadTasks() {
+    await connect()
+
     const tasksLoaded = await taskQueries.tasksLoaded()
 
     if (tasksLoaded) {
@@ -56,6 +61,8 @@ export default function HomeScreen({ navigation, route }) {
     if (activities.length > 0) {
       return
     }
+
+    await connect()
 
     for (const key in tasks) {
       const activity = new TaskActivity()
